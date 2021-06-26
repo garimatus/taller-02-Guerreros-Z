@@ -17,10 +17,10 @@ int main(int argc, char** argv)
     {
         int dias = 0;
 
-        const char* color = "green";
+        const char* color = "32";
         
         std::vector<ingresoDiario> ingresos = obtenerIngresos(lectura, dias);
-        
+
         participantes(color);
         
         lectura.close();
@@ -31,7 +31,7 @@ int main(int argc, char** argv)
         
         std::cout << "El nombre del archivo solicitado es incorrecto o este no existe en el directorio local." << std::endl;
 
-        const char* color = "red";
+        const char* color = "31";
 
         participantes(color);
 
