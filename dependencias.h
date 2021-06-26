@@ -1,4 +1,7 @@
+#include "./dependencias/ingresoDiario.h"
+#include <vector>
 
 
+void participantes(const char*);
 
-void participantes();
+std::vector<ingresoDiario> obtenerIngresos(std::istream&, int&);

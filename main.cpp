@@ -6,6 +6,7 @@
 
 int main(int argc, char** argv)
 {
+    std::string linea;
     std::string ruta = argv[1];
 
     std::ifstream lectura;
@@ -14,15 +15,25 @@ int main(int argc, char** argv)
 
     if (lectura && std::string(ruta.substr(ruta.length()-9, 9)) == "datos.csv")
     {
+        int dias = 0;
 
-        participantes();
+        const char* color = "green";
+        
+        std::vector<ingresoDiario> ingresos = obtenerIngresos(lectura, dias);
+        
+        participantes(color);
+        
+        lectura.close();
         
         return EXIT_SUCCESS;
+        
     } else {
         
         std::cout << "El nombre del archivo solicitado es incorrecto o este no existe en el directorio local." << std::endl;
 
-        participantes();
+        const char* color = "red";
+
+        participantes(color);
 
         return EXIT_FAILURE;
     }
