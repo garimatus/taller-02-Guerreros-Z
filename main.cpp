@@ -6,34 +6,40 @@
 
 int main(int argc, char** argv)
 {
-    std::string linea;
-    std::string ruta = argv[1];
-
-    std::ifstream lectura;
-
-    lectura.open(ruta, std::ios_base::in);
-
-    if (lectura && std::string(ruta.substr(ruta.length()-9, 9)) == "datos.csv")
-    {
-        int dias = 0;
-
-        const char* color = "32";
+    if (argc > 1) {
         
-        std::vector<ingresoDiario> ingresos = obtenerIngresos(lectura, dias);
+        std::string linea;
+        std::string ruta = argv[1];
 
-        participantes(color);
-        
-        lectura.close();
-        
-        return EXIT_SUCCESS;
-        
+        std::ifstream lectura;
+
+        lectura.open(ruta, std::ios_base::in);
+
+        if (lectura && std::string(ruta.substr(ruta.length()-9, 9)) == "datos.csv") {
+            int dias = 0;
+            
+            std::vector<ingresoDiario> ingresos = obtenerIngresos(lectura, dias);
+
+            participantes("32");
+            
+            lectura.close();
+            
+            return EXIT_SUCCESS;
+            
+        } else {
+            
+            std::cout << "\033[1;31mEl nombre del archivo solicitado es incorrecto o este no existe en el directorio local.\033[0m" << std::endl;
+
+            participantes("31");
+
+            return EXIT_FAILURE;
+        }
+
     } else {
         
-        std::cout << "El nombre del archivo solicitado es incorrecto o este no existe en el directorio local." << std::endl;
-
-        const char* color = "31";
-
-        participantes(color);
+        std::cout << "\033[1;31mNo se ha ingresado la ruta del archivo solicitado.\033[0m" << std::endl;
+        
+        participantes("31");
 
         return EXIT_FAILURE;
     }
