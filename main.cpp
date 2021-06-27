@@ -16,13 +16,14 @@ int main(int argc, char** argv)
         lectura.open(ruta, std::ios_base::in);
 
         if (lectura && std::string(ruta.substr(ruta.length()-9, 9)) == "datos.csv") {
+            
             int dias = 0;
             
             std::vector<ingresoDiario> ingresos = obtenerIngresos(lectura, dias);
 
-            participantes("32");
-            
             lectura.close();
+            
+            participantes("32");
             
             return EXIT_SUCCESS;
             
