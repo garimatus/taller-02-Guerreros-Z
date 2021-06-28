@@ -30,17 +30,7 @@ std::vector<ingresoDiario> obtenerIngresos(std::istream& lectura, int& dias)
                 item = item.substr(1, item.length() - 2);
                 
                 if (columna == 0) {
-                    
                     dia = item.substr(0, 10);
-                    
-                    if (fecha != dia && fecha != "0/0/0") {
-                    
-                        ingresoDiario temp = { fecha, cantidadDiaria, montoDiario };
-                        ingresos.push_back(temp);
-                        cantidadDiaria = 0;
-                        montoDiario = 0;
-                        ++dias;
-                    }
                 }
 
                 if (columna == 2) {
@@ -53,6 +43,13 @@ std::vector<ingresoDiario> obtenerIngresos(std::istream& lectura, int& dias)
                 
                 ++columna;
             }
+
+            if (fecha != dia && fecha != "0/0/0") {
+                ingresos.push_back({ fecha, cantidadDiaria, montoDiario });
+                cantidadDiaria = 0;
+                montoDiario = 0;
+                ++dias;
+            }
             
             fecha = dia;
             cantidadDiaria += cantidad;
@@ -60,6 +57,11 @@ std::vector<ingresoDiario> obtenerIngresos(std::istream& lectura, int& dias)
         }
 
         primeraLinea = false;
+    }
+
+    if (lectura.eof()) {
+        ingresos.push_back({ fecha, cantidadDiaria, montoDiario });
+        ++dias;
     }
 
     return ingresos;
