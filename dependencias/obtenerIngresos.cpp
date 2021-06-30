@@ -3,14 +3,17 @@
 #include <vector>
 #include <sstream>
 
-#include "ingresoDiario.h"
+#include "../dependencias.h"
+#include "./RataDie.cpp"
 
 std::vector<ingresoDiario> obtenerIngresos(std::istream& lectura, int& dias)
 {
     std::string linea;
     std::vector<ingresoDiario> ingresos;
-    std::string fecha("0/0/0");
+    std::string fecha("0-0-0");
+    std::vector<std::string> fechaInicial;
     int cantidadDiaria = 0;
+    long int difDias = 0;
     long long int montoDiario = 0;
     bool primeraLinea = true;
 
@@ -31,6 +34,12 @@ std::vector<ingresoDiario> obtenerIngresos(std::istream& lectura, int& dias)
                 
                 if (columna == 0) {
                     dia = item.substr(0, 10);
+
+                    if (fecha == "0-0-0") {
+                        std::string temp;
+                        std::stringstream ss(dia);
+                        while (getline(ss, temp, '-')) { fechaInicial.push_back(temp); }
+                    }
                 }
 
                 if (columna == 2) {
@@ -44,8 +53,13 @@ std::vector<ingresoDiario> obtenerIngresos(std::istream& lectura, int& dias)
                 ++columna;
             }
 
-            if (fecha != dia && fecha != "0/0/0") {
-                ingresos.push_back({ fecha, cantidadDiaria, montoDiario });
+            if (fecha != dia && fecha != "0-0-0") {
+                std::vector<std::string> fechaActual;
+                std::stringstream ss(fecha);
+                std::string temp;
+                while (std::getline(ss, temp, '-')) { fechaActual.push_back(temp); };
+                difDias = rdn(std::stoi(fechaActual.at(0)), std::stoi(fechaActual.at(1)), std::stoi(fechaActual.at(2))) - rdn(std::stoi(fechaInicial.at(0)), std::stoi(fechaInicial.at(1)), std::stoi(fechaInicial.at(2)));
+                ingresos.push_back({ fecha, cantidadDiaria, difDias, montoDiario });
                 cantidadDiaria = 0;
                 montoDiario = 0;
                 ++dias;
@@ -60,7 +74,12 @@ std::vector<ingresoDiario> obtenerIngresos(std::istream& lectura, int& dias)
     }
 
     if (lectura.eof()) {
-        ingresos.push_back({ fecha, cantidadDiaria, montoDiario });
+        std::vector<std::string> fechaActual;
+        std::stringstream ss(fecha);
+        std::string temp;
+        while (std::getline(ss, temp, '-')) { fechaActual.push_back(temp); };
+        difDias = rdn(std::stoi(fechaActual.at(0)), std::stoi(fechaActual.at(1)), std::stoi(fechaActual.at(2))) - rdn(std::stoi(fechaInicial.at(0)), std::stoi(fechaInicial.at(1)), std::stoi(fechaInicial.at(2)));
+        ingresos.push_back({ fecha, cantidadDiaria, difDias, montoDiario });
         ++dias;
     }
 

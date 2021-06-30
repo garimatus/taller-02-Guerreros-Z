@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <time.h>
 
 #include "dependencias.h"
 
@@ -17,11 +18,52 @@ int main(int argc, char** argv)
 
         if (lectura && std::string(ruta.substr(ruta.length()-9, 9)) == "datos.csv") {
             
-            int dias = 0;
+            int muestra = 0;
             
-            std::vector<ingresoDiario> ingresos = obtenerIngresos(lectura, dias);
+            std::vector<ingresoDiario> ingresos = obtenerIngresos(lectura, muestra);
 
             lectura.close();
+
+            if (ingresos.size() > 0) {
+                
+                /*
+                * Sets de datos para trabajar.
+                */
+                std::vector<long long int> dias;
+                std::vector<long long int> montos;
+
+                for (std::vector<ingresoDiario>::iterator it = ingresos.begin(); it != ingresos.end(); ++it) {
+                    dias.push_back(it -> dias);
+                    montos.push_back(it -> monto);
+                }
+
+                std::srand(time(NULL));
+                int evaluacion = std::rand() % 199;
+
+                std::cout << std::endl;
+
+                std::cout << "\033[1;32m====================[Modelo #1 de Regresión Lineal]====================\033[0m" << std::endl;
+
+                std::cout << std::endl;
+                
+                regresionLineal modelo1(muestra, dias, montos, "fecha");
+
+                std::cout << "Expresión : " << modelo1.getExpresion() << ", R^2 = " << modelo1.getR() << std::endl;
+
+                std::cout << std::endl;
+
+                modelo1.setExpresion(std::string("[" + ingresos.at(evaluacion).fecha + "]"));
+
+                std::cout << "Evaluando en la fecha " << ingresos.at(evaluacion).fecha << " : " << modelo1.getExpresion() << " = $" << modelo1.evaluar(ingresos.at(evaluacion).dias) << " CLP" << std::endl;
+                
+                std::cout << std::endl;
+
+                std::cout << "Valor real : $" << ingresos.at(evaluacion).monto << " CLP" << std::endl;
+
+                std::cout << std::endl;
+
+                std::cout << "\033[1;32m=======================================================================\033[0m" << std::endl;
+            }
             
             participantes("32");
             

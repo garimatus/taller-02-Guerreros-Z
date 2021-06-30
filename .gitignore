@@ -34,3 +34,4 @@
 *.csv
 bin
 build
+.~lock.datos.csv#
