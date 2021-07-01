@@ -27,9 +27,9 @@ regresionLineal::regresionLineal(long int n, std::vector<long long int> datos_x,
 
         long double dif_yy = double(Y.at(i) - prom_y);
 
-        varianza_y += dif_yy * dif_yy;
+        varianza_y += (dif_yy * dif_yy);
 
-        varianza_x += dif_xx * dif_xx;
+        varianza_x += (dif_xx * dif_xx);
 
         covarianza += (X.at(i) * Y.at(i));
     }
@@ -49,6 +49,11 @@ regresionLineal::regresionLineal(long int n, std::vector<long long int> datos_x,
     setExpresion(variable);
 }
 
+regresionLineal::~regresionLineal()
+{
+
+}
+
 long double regresionLineal::evaluar(long double x)
 {
     return (x * this -> pendiente) + this -> intercepto;
@@ -59,9 +64,9 @@ void regresionLineal::setExpresion(std::string variable)
     this -> x = variable;
     
     if (intercepto > 0.0) {
-        this -> expresion = std::to_string(pendiente) + "*" + x + " +" + std::to_string(intercepto);
+        this -> expresion = std::to_string(pendiente) + "×" + x + " +" + std::to_string(intercepto);
     } else {
-        this -> expresion = std::to_string(pendiente) + "*" + x + " " + std::to_string(intercepto);
+        this -> expresion = std::to_string(pendiente) + "×" + x + " " + std::to_string(intercepto);
     }
 }
 

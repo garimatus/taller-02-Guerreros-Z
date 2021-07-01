@@ -38,7 +38,7 @@ int main(int argc, char** argv)
                 }
 
                 std::srand(time(NULL));
-                int evaluacion = std::rand() % 199;
+                int evaluacion = std::rand() % (muestra - 1);
 
                 std::cout << std::endl;
 
@@ -48,17 +48,17 @@ int main(int argc, char** argv)
                 
                 regresionLineal modelo1(muestra, dias, montos, "fecha");
 
-                std::cout << "Expresión : " << modelo1.getExpresion() << ", R^2 = " << modelo1.getR() << std::endl;
+                std::cout << "Expresión : " << modelo1.getExpresion() << ", R² = " << modelo1.getR() << std::endl;
 
                 std::cout << std::endl;
 
-                modelo1.setExpresion(std::string("[" + ingresos.at(evaluacion).fecha + "]"));
+                modelo1.setExpresion("[" + ingresos.at(evaluacion).fecha + "]");
 
-                std::cout << "Evaluando en la fecha " << ingresos.at(evaluacion).fecha << " : " << modelo1.getExpresion() << " = $" << modelo1.evaluar(ingresos.at(evaluacion).dias) << " CLP" << std::endl;
+                std::cout << "Evaluando en la fecha " << ingresos.at(evaluacion).fecha << " (ingreso real del día : $" << ingresos.at(evaluacion).monto << ") : " << std::endl;
                 
                 std::cout << std::endl;
-
-                std::cout << "Valor real : $" << ingresos.at(evaluacion).monto << " CLP" << std::endl;
+                
+                std::cout << modelo1.getExpresion() << " = $" << modelo1.evaluar(ingresos.at(evaluacion).dias) << " CLP" << std::endl;
 
                 std::cout << std::endl;
 

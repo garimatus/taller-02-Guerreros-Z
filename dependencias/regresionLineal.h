@@ -6,6 +6,7 @@
 class regresionLineal {
     public :
         regresionLineal(long int, std::vector<long long int>, std::vector<long long int>, const char*);
+        virtual ~regresionLineal();
         void setExpresion(std::string);
         long double evaluar(long double);
         std::string getExpresion();
