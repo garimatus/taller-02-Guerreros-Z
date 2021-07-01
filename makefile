@@ -2,8 +2,8 @@ MKDIR=mkdir
 CP=cp
 
 
-taller02: dir main.o participantes.o obtenerIngresos.o regresionLineal.o
-	g++ build/main.o build/participantes.o build/obtenerIngresos.o build/regresionLineal.o -o bin/taller02
+taller02: dir main.o participantes.o obtenerIngresos.o mco.o
+	g++ build/main.o build/participantes.o build/obtenerIngresos.o build/mco.o -o bin/taller02
 	rm -fr build/*.o build
 
 dir:
@@ -18,8 +18,8 @@ participantes.o: dependencias/participantes.cpp dependencias.h
 obtenerIngresos.o: dependencias/obtenerIngresos.cpp dependencias/RataDie.cpp dependencias.h
 	g++ -c dependencias/obtenerIngresos.cpp -o build/obtenerIngresos.o
 
-regresionLineal.o: dependencias/regresionLineal.cpp dependencias.h
-	g++ -c dependencias/regresionLineal.cpp -o build/regresionLineal.o
+mco.o: dependencias/MCO.cpp dependencias.h
+	g++ -c dependencias/MCO.cpp -o build/mco.o
 
 clean:
 	rm -fr build/*.o bin/* build bin

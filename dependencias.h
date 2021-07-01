@@ -1,5 +1,5 @@
 #include "./dependencias/ingresoDiario.h"
-#include "./dependencias/regresionLineal.h"
+#include "./dependencias/MCO.h"
 
 #include <vector>
 

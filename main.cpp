@@ -46,7 +46,7 @@ int main(int argc, char** argv)
 
                 std::cout << std::endl;
                 
-                regresionLineal modelo1(muestra, dias, montos, "fecha");
+                MCO modelo1(muestra, dias, montos, "fecha");
 
                 std::cout << "Expresión : " << modelo1.getExpresion() << ", R² = " << modelo1.getR() << std::endl;
 
