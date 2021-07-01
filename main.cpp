@@ -42,7 +42,7 @@ int main(int argc, char** argv)
 
                 std::cout << std::endl;
 
-                std::cout << "\033[1;32m====================[Modelo #1 de Regresión Lineal]====================\033[0m" << std::endl;
+                std::cout << "\033[1;32m====================[Modelo #1 de Regresión Lineal de Mínimos Cuadrados Orddinarios]====================\033[0m" << std::endl;
 
                 std::cout << std::endl;
                 
@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 
                 std::cout << std::endl;
 
-                std::cout << "\033[1;32m=======================================================================\033[0m" << std::endl;
+                std::cout << "\033[1;32m========================================================================================================\033[0m" << std::endl;
             }
             
             participantes("32");
