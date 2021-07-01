@@ -31,10 +31,14 @@ int main(int argc, char** argv)
                 */
                 std::vector<long long int> dias;
                 std::vector<long long int> montos;
-
-                for (std::vector<ingresoDiario>::iterator it = ingresos.begin(); it != ingresos.end(); ++it) {
+                double x[199];
+                double y[199];
+                int i=0;
+                for (std::vector<ingresoDiario>::iterator it = ingresos.begin(); it != ingresos.end(); ++it,i++) {
                     dias.push_back(it -> dias);
                     montos.push_back(it -> monto);
+                    x[i] = it -> dias;
+                    y[i] = it -> monto;
                 }
 
                 std::srand(time(NULL));
@@ -42,7 +46,7 @@ int main(int argc, char** argv)
 
                 std::cout << std::endl;
 
-                std::cout << "\033[1;32m====================[Modelo #1 de Regresión Lineal de Mínimos Cuadrados Orddinarios]====================\033[0m" << std::endl;
+                std::cout << "\033[1;32m====================[Modelo #1 de Regresión Lineal de Mínimos Cuadrados Ordinarios]====================\033[0m" << std::endl;
 
                 std::cout << std::endl;
                 
@@ -63,8 +67,31 @@ int main(int argc, char** argv)
                 std::cout << std::endl;
 
                 std::cout << "\033[1;32m========================================================================================================\033[0m" << std::endl;
-            }
             
+
+
+
+                int evaluacion2 = std::rand() % (muestra - 1);
+
+                std::cout << "\033[1;32m====================[Modelo #2 de Regresión Polinomica]====================\033[0m" << std::endl;
+
+                std::cout << std::endl;
+                
+                std::cout << "Evaluando en la fecha " << ingresos.at(evaluacion2).fecha << " (ingreso real del día : $" << ingresos.at(evaluacion2).monto << ") : " << std::endl;
+                
+                std::cout << std::endl;
+                regresionPolinomica(x, y, sizeof(x)/sizeof(x[0]), 6, evaluacion2);
+                std::cout <<" = $" << modelo1.evaluar(ingresos.at(evaluacion2).dias) << " CLP" << std::endl;
+
+                std::cout << std::endl;
+
+                std::cout << "\033[1;32m========================================================================================================\033[0m" << std::endl;
+            
+                
+            }
+
+
+
             participantes("32");
             
             return EXIT_SUCCESS;
